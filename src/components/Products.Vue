@@ -1,19 +1,19 @@
 <template>
     <div class="row product-container">
       <app-product v-for="item in productList" :key="item">
-          <img class="card-img-top" src="/src/assets/default.png" alt="Card image cap">
+          <img class="card-img-top" :src="item.selectedImage" :alt="item.title">
             <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">{{item.title}}</h5>
                 <small>
-                    <strong>Count : </strong> 1
+                    <strong>Count : </strong> {{item.count}}
                 </small>
                 <br>
                 <small>
-                    <strong>Cost : </strong> 10
+                    <strong>Cost : </strong> {{item.cost}}
                 </small>
                 <br>
                 <small>
-                    <strong>Total : </strong> 10
+                    <strong>Total : </strong> {{item.total}}
                 </small>
             </div>
       </app-product>
@@ -24,6 +24,7 @@
 <script>
 
 import Product from './Product'
+import { eventBus } from '../main'
 
 export default {
     components: {
@@ -33,6 +34,11 @@ export default {
         return {
             productList: [],
         }
+    },
+    created(){
+        eventBus.$on("productAdded",(data)=>{
+            this.productList.push(data)
+        })
     }
 }
 </script>
