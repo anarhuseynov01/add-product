@@ -13,19 +13,19 @@
           <div class="card-body">
             <div class="form-group">
               <label>Product Name</label>
-              <input type="text" class="form-control" placeholder="name">
+              <input type="text" v-model="product.title" class="form-control" placeholder="name">
             </div>
             <div class="row">
               <div class="form-group col-md-6">
                 <label>Product Count</label>
-                <input type="text" class="form-control" placeholder="count">
+                <input type="text" v-model="product.count" class="form-control" placeholder="count">
               </div>
               <div class="form-group col-md-6">
                 <label>Product Cost</label>
-                <input type="text" class="form-control" placeholder="cost">
+                <input type="text" v-model="product.cost" class="form-control" placeholder="cost">
               </div>
             </div>
-            <button class="btn btn-outline-info btn-block">Add!</button>
+            <button class="btn btn-outline-info btn-block" @click="addProduct">Add!</button>
           </div>
         </div>
       </div>
@@ -37,8 +37,29 @@
 export default {
     data(){
         return {
-            product: {}
+            product: {
+                title: null,
+                count: null,
+                cost: null,
+                total: null,
+                selectedImage: null
+            }
         }
+    },
+    methods:{
+        onChange(e) {
+
+        // file goturmek ucun
+        const file = e.target.files[0];
+
+        // faylin url linkin duzeltmek ucun 
+        this.product.selectedImage = URL.createObjectURL(file);
+        
+      },
+      addProduct(){
+          this.product.total = this.product.count * this.product.cost;
+          console.log(this.product)
+      }
     }
 }
 </script>
