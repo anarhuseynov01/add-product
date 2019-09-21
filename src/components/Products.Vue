@@ -37,7 +37,13 @@ export default {
     },
     created(){
         eventBus.$on("productAdded",(data)=>{
-            this.productList.push(data)
+            if(this.productList.length < 10){
+                this.productList.push(data);
+                eventBus.$emit("progressBarUpdate",this.productList.length)
+            } else {
+                alert('10 dan artiq product elave etmek olmaz!');
+            }
+    
         })
     }
 }
